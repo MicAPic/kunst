@@ -17,7 +17,6 @@ public class Box : MonoBehaviour
             if (!contact.collider.gameObject.CompareTag("Obstacle")) continue;
             
             var distance = contact.normalImpulse - Physics2D.defaultContactOffset * 2.0f;
-            Debug.Log($"V: {contact.normal * distance}, M: {(contact.normal *distance).magnitude}");
             _rigidbody.AddForce(contact.normal * distance);
         }
     }
