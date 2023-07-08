@@ -213,6 +213,7 @@ MonoBehaviour:
   laserFirePoint: {fileID: 2889723623193048998}
   lineRenderer: {fileID: 2889723623075871518}
   laserEndParticles: {fileID: 2889723624141517026}
+  endParticlesPlaying: 0
 --- !u!1 &2889723623193048999
 GameObject:
   m_ObjectHideFlags: 0
