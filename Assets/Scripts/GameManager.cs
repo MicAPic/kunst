@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     
     public Camera mainCamera;
     public Rigidbody2D[] boxes;
+    public bool isPaused;
+    public bool canPause;
 
     void Awake()
     {
