@@ -94,10 +94,15 @@ namespace UI
             var paintBrush = paintBrushes[0];
             paintBrush.GetComponent<Shadow>().enabled = false;
             paintBrush.anchoredPosition = paintBrushEndLocations[0];
-            paintBrush.DOAnchorPos(paintBrushStartLocations[0], transitionDuration);
+            paintBrush.DOAnchorPos(paintBrushStartLocations[0], transitionDuration).SetUpdate(true);
             
             paintBrushes[^1].DOAnchorPos(paintBrushStartLocations[^1], transitionDuration)
-                .OnComplete(() => asyncOperation.allowSceneActivation = true);
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    Time.timeScale = 1.0f;
+                    asyncOperation.allowSceneActivation = true;
+                });
         }
     }
 }

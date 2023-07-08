@@ -30,7 +30,7 @@ namespace Audio
                 exposedVolumeName,
                 Mathf.Log10(0.0001f) * 20,
                 duration
-            );
+            ).SetUpdate(true);
         }
 
         public void FadeIn(float duration)
