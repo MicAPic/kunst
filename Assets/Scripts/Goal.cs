@@ -1,3 +1,4 @@
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,6 @@ public class Goal : MonoBehaviour
     {
         if (!col.gameObject.CompareTag("Player")) return;
 
-        // TODO: add a transition
-        SceneManager.LoadScene(levelToLoad);
+        InGameUI.Instance.AnimateTransition(levelToLoad);
     }
 }
