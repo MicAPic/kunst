@@ -5,6 +5,10 @@ namespace Interactables
 {
     public class Laser : IInteractable
     {
+        [Header("Appearance")] 
+        [SerializeField]
+        private Color laserColor = Color.red;
+        [Space]
         [SerializeField]
         private float distanceRay = 100;
         [SerializeField]
@@ -17,7 +21,7 @@ namespace Interactables
 
         void Start()
         {
-            lineRenderer.material.color = Color.red;
+            // lineRenderer.material.color = laserColor;
         }
 
         public override void Update()
@@ -26,6 +30,8 @@ namespace Interactables
             
             if (!isEnabled) return;
             ShootLaser();
+            //TODO: move the following back to Start
+            lineRenderer.material.color = laserColor;
         }
 
         public override void Enable()

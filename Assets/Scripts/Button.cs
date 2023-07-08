@@ -1,11 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using Interactables;
 using UnityEngine;
 
 public class Button : MonoBehaviour
 {
+    [Header("Functionality")]
     [SerializeField] 
     private bool isActive;
     [SerializeField] 
@@ -15,17 +15,18 @@ public class Button : MonoBehaviour
     [SerializeField] 
     private float time;
     
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     
-    // }
+    [Header("Appearance")]
+    [SerializeField]
+    private SpriteRenderer buttonSpriteRenderer;
+    [SerializeField] 
+    private Sprite activeSprite;
+    private Sprite _inactiveSprite;
 
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     
-    // }
+    private void Awake()
+    {
+        _inactiveSprite = buttonSpriteRenderer.sprite;
+    }
+
     private IEnumerator OnTriggerEnter2D(Collider2D col)
     {
         if (!isActive)
@@ -72,13 +73,13 @@ public class Button : MonoBehaviour
 
     private void AnimateActivation()
     {
-        //TODO: swap sprites
-        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+        buttonSpriteRenderer.sprite = activeSprite;
+        buttonSpriteRenderer.DOColor(new Color(1, 1, 1, 0.5f), 0.2f);
     }
     
     private void AnimateDeactivation()
     {
-        //TODO: swap sprites
-        GetComponent<SpriteRenderer>().color = Color.white;
+        buttonSpriteRenderer.sprite = _inactiveSprite;
+        buttonSpriteRenderer.DOColor(Color.white, 0.2f);
     }
 }
