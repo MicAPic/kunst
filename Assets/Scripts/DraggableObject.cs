@@ -31,11 +31,6 @@ public class DraggableObject : MonoBehaviour
         _currentVelocity = Vector2.Lerp(_currentVelocity, _velocity, Time.deltaTime * dragDamping);
         _rigidbody.velocity = _currentVelocity;
 
-        foreach (var box in GameManager.Instance.boxes)
-        {
-            box.AddForce(-_velocity);
-        }
-        
         if (!_isDragged) return;
 
         var newPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition) + _offset;
