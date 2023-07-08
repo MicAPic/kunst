@@ -77,9 +77,10 @@ namespace Interactables
                     }
                 }
 
-                if (hitAll[index].collider.CompareTag("Player"))
+                var raycastHit2D = hitAll[index];
+                if (raycastHit2D.collider.TryGetComponent(out Player player))
                 {
-                    // TODO: game over
+                    player.Die();
                 }
 
                 if (!endParticlesPlaying)
@@ -88,10 +89,10 @@ namespace Interactables
                     laserEndParticles.gameObject.SetActive(true);
                     laserEndParticles.Play(true);
                 }
-                laserEndParticles.gameObject.transform.position = hitAll[index].point;
-                float distance = ((Vector2)hitAll[index].point - (Vector2)transform.position).magnitude;
+                laserEndParticles.gameObject.transform.position = raycastHit2D.point;
+                float distance = ((Vector2)raycastHit2D.point - (Vector2)transform.position).magnitude;
                 lineRenderer.SetPosition(1, new Vector3(distance, 0, 0));
-                Draw2DRay(laserFirePoint.position, hitAll[index].point);
+                Draw2DRay(laserFirePoint.position, raycastHit2D.point);
             }
             else
             {
