@@ -43,7 +43,13 @@ namespace Interactables
 
         public override IEnumerator EnableWithTimer(float time)
         {
-            throw new System.NotImplementedException();
+            isEnabled = true;
+            lineRenderer.enabled = true;
+
+            timer.gameObject.SetActive(true);
+            StartCoroutine(timer.Countdown(time, this));
+
+            yield return null;
         }
 
         private bool soundWasPlayed;
@@ -74,6 +80,7 @@ namespace Interactables
                 if (!endParticlesPlaying)
                 {
                     endParticlesPlaying = true;
+                    laserEndParticles.gameObject.SetActive(true);
                     laserEndParticles.Play(true);
                 }
                 laserEndParticles.gameObject.transform.position = hitAll[index].point;
@@ -93,9 +100,11 @@ namespace Interactables
             lineRenderer.SetPosition(1, endPos);
         }
 
-        public void DisableParticle()
+        private void DisableParticle()
         {
+            endParticlesPlaying = !endParticlesPlaying;
             laserEndParticles.Pause();
+            laserEndParticles.gameObject.SetActive(false);
         }
     }
 }

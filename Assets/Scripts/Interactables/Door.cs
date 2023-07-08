@@ -71,16 +71,13 @@ namespace Interactables
         public override IEnumerator EnableWithTimer(float time)
         {
             isEnabled = true;
-            for (var index = 0; index < doorParts.Length - 1; index++)
+
+            for (var index = 0; index < doorParts.Length; index++)
             {
                 doorParts[index].DOLocalMove(doorEndPositions[index], animationDuration);
             }
-            doorParts[^1].DOLocalMove(doorEndPositions[^1], animationDuration)
-                         .OnComplete(() =>
-                         {
-                             timer.gameObject.SetActive(true);
-                             StartCoroutine(timer.Countdown(time, this));
-                         });
+            timer.gameObject.SetActive(true);
+            StartCoroutine(timer.Countdown(time, this));
 
             yield return null;
         }
