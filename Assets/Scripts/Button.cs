@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Interactables;
@@ -14,6 +15,8 @@ public class Button : MonoBehaviour
     private bool hasTimer;
     [SerializeField] 
     private float time;
+
+    private int _contactCount;
     
     [Header("Appearance")]
     [SerializeField]
@@ -29,20 +32,22 @@ public class Button : MonoBehaviour
 
     private IEnumerator OnTriggerEnter2D(Collider2D col)
     {
-        if (!isActive)
-        {
-            Activate();
+        _contactCount++;
+        
+        if (isActive) yield break;
+        Activate();
 
-            if (!hasTimer) yield break;
-            yield return new WaitForSeconds(time);
-            isActive = false;
-            AnimateDeactivation();
-        }
+        if (!hasTimer) yield break;
+        yield return new WaitForSeconds(time);
+        isActive = false;
+        AnimateDeactivation();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (hasTimer) return;
+        _contactCount--;
+        
+        if (hasTimer || !isActive || _contactCount > 0) return;
         Deactivate();
     }
 
