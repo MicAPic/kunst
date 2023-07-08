@@ -77,14 +77,10 @@ namespace Interactables
                     }
                 }
 
-
-                //Debug.Log(hitAll[index].collider);
-
-
-                //if (hitAll[index].collider.CompareTag("Player"))
-                //{
-                //    // TODO: game over
-                //}
+                if (hitAll[index].collider.CompareTag("Player"))
+                {
+                    // TODO: game over
+                }
 
                 if (!endParticlesPlaying)
                 {
