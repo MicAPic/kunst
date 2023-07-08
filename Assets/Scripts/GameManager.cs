@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     
     public Camera mainCamera;
+    public Rigidbody2D[] boxes;
 
     void Awake()
     {

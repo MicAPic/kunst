@@ -5,6 +5,7 @@ public class DraggableObject : MonoBehaviour
     [Header("Physics")]
     public float dragPower = 1.0f;
     public float dragDamping = 1.75f;
+    public float boxPushForce = 1.0f;
     private Vector2 _currentVelocity;
     private Vector2 _velocity;
 
@@ -30,6 +31,11 @@ public class DraggableObject : MonoBehaviour
     {
         _currentVelocity = Vector2.Lerp(_currentVelocity, _velocity, Time.deltaTime * dragDamping);
         _rigidbody.velocity = _currentVelocity;
+
+        foreach (var box in GameManager.Instance.boxes)
+        {
+            box.velocity = -_currentVelocity * boxPushForce;
+        }
 
         if (!_isDragged) return;
 
