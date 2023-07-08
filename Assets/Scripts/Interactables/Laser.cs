@@ -68,9 +68,10 @@ namespace Interactables
             if (hitAll.Length > 1)
             {
                 int index = 1;
-                for(int i = 1; i < hitAll.Length; ++i)
+                for (int i = 1; i < hitAll.Length; ++i)
                 {
-                    if (!hitAll[i].collider.CompareTag("Button")){
+                    if (!hitAll[i].collider.CompareTag("Button") && !hitAll[i].collider.CompareTag("Floor"))
+                    {
                         index = i;
                         break;
                     }
