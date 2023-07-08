@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3179707398832314918}
   - component: {fileID: 2056483467647746019}
   - component: {fileID: 3079842988288223758}
+  - component: {fileID: 2832760926780429016}
   m_Layer: 0
   m_Name: Thorn
   m_TagString: Thorn
@@ -113,3 +114,15 @@ PolygonCollider2D:
     - - {x: -0.0024127886, y: 0.4953238}
       - {x: -0.43906766, y: -0.25058395}
       - {x: 0.43145114, y: -0.2531228}
+--- !u!114 &2832760926780429016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812994418560679477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbac4c754554548b4b89e5db5ce994cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

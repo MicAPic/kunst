@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class PlayerTriggerDetection : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Thorn"))
         {
-            Debug.Log("Thorn detection");
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        throw new NotImplementedException();
     }
 }
