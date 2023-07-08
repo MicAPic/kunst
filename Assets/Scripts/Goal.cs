@@ -1,6 +1,5 @@
 using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class Goal : MonoBehaviour
     {
         if (!col.gameObject.CompareTag("Player")) return;
 
+        GameManager.Instance.canPause = false;
         InGameUI.Instance.AnimateTransition(levelToLoad);
     }
 }

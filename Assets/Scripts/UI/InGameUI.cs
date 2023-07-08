@@ -1,7 +1,9 @@
+using System.Collections;
 using Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -9,7 +11,17 @@ namespace UI
     {
         public static InGameUI Instance;
 
-        [Header("Transition")] 
+        [Header("Pause")]
+        [SerializeField]
+        private float pauseTransitionDuration = 1.0f;
+        [SerializeField] 
+        private Vector2 pauseBrushStartLocation;
+        [SerializeField] 
+        private Vector2 pauseBrushEndLocation;
+        [SerializeField]
+        private CanvasGroup pauseMenuGroup;
+        
+        [Header("End Transition")] 
         [SerializeField]
         private float transitionDuration = 1.0f;
         [SerializeField] 
@@ -30,7 +42,7 @@ namespace UI
         }
         
         // Start is called before the first frame update
-        void Start()
+        IEnumerator Start()
         {
             if (paintBrushStartLocations.Length != paintBrushEndLocations.Length)
             {
@@ -43,13 +55,34 @@ namespace UI
                 paintBrush.anchoredPosition = paintBrushStartLocations[i];
                 paintBrush.DOAnchorPos(paintBrushEndLocations[i], transitionDuration);
             }
+
+            yield return new WaitForSeconds(transitionDuration);
+            GameManager.Instance.canPause = true;
         }
         
-        // // Update is called once per frame
-        // void Update()
-        // {
-        //
-        // }
+        // Update is called once per frame
+        void Update()
+        {
+            if (!Input.GetKeyDown(KeyCode.Escape)) return;
+            
+            var paintBrush = paintBrushes[0];
+            if (GameManager.Instance.isPaused)
+            {
+                Time.timeScale = 1.0f;
+                paintBrush.DOAnchorPos(pauseBrushStartLocation, pauseTransitionDuration).SetUpdate(true);
+                pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration).SetUpdate(true);
+            }
+            else
+            {
+                Time.timeScale = 0.0f;
+                paintBrush.anchoredPosition = pauseBrushStartLocation;
+                paintBrush.DOAnchorPos(pauseBrushEndLocation, pauseTransitionDuration).SetUpdate(true);
+                paintBrush.GetComponent<Shadow>().enabled = true;
+                pauseMenuGroup.DOFade(1.0f, pauseTransitionDuration).SetUpdate(true);
+            }
+
+            GameManager.Instance.isPaused = !GameManager.Instance.isPaused;
+        }
 
         public void AnimateTransition(string sceneToLoad)
         {
@@ -57,16 +90,13 @@ namespace UI
             asyncOperation.allowSceneActivation = false;
             
             AudioManager.Instance.FadeOutAll(transitionDuration);
+
+            var paintBrush = paintBrushes[0];
+            paintBrush.GetComponent<Shadow>().enabled = false;
+            paintBrush.anchoredPosition = paintBrushEndLocations[0];
+            paintBrush.DOAnchorPos(paintBrushStartLocations[0], transitionDuration);
             
-            RectTransform paintBrush;
-            for (var i = 0; i < paintBrushes.Length - 1; i++)
-            {
-                paintBrush = paintBrushes[i];
-                paintBrush.DOAnchorPos(paintBrushStartLocations[i], transitionDuration);
-            }
-            
-            paintBrush = paintBrushes[^1];
-            paintBrush.DOAnchorPos(paintBrushStartLocations[^1], transitionDuration)
+            paintBrushes[^1].DOAnchorPos(paintBrushStartLocations[^1], transitionDuration)
                 .OnComplete(() => asyncOperation.allowSceneActivation = true);
         }
     }

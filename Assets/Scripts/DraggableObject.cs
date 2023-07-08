@@ -17,7 +17,6 @@ public class DraggableObject : MonoBehaviour
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        
     }
 
     // Start is called before the first frame update
