@@ -37,11 +37,12 @@ public class Button : MonoBehaviour
             isActive = false;
             AnimateDeactivation();
         }
-        else
-        {
-            if (hasTimer) yield break;
-            Deactivate();
-        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (hasTimer) return;
+        Deactivate();
     }
 
     private void Activate()
