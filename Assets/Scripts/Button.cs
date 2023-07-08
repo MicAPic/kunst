@@ -40,6 +40,10 @@ public class Button : MonoBehaviour
         if (!hasTimer) yield break;
         yield return new WaitForSeconds(time);
         isActive = false;
+        if (_contactCount > 0)
+        {
+            yield break;
+        }
         AnimateDeactivation();
     }
 
@@ -47,7 +51,7 @@ public class Button : MonoBehaviour
     {
         _contactCount--;
         
-        if (hasTimer || !isActive || _contactCount > 0) return;
+        if ((hasTimer && isActive) || _contactCount > 0) return;
         Deactivate();
     }
 
