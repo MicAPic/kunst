@@ -30,21 +30,22 @@ namespace Interactables
 
         public override void Enable()
         {
-            isEnabled = true;
-            lineRenderer.enabled = true;
-        }
-
-        public override void Disable()
-        {
             isEnabled = false;
             lineRenderer.enabled = false;
             DisableParticle();
         }
 
-        public override IEnumerator EnableWithTimer(float time)
+        public override void Disable()
         {
             isEnabled = true;
             lineRenderer.enabled = true;
+        }
+
+        public override IEnumerator EnableWithTimer(float time)
+        {
+            isEnabled = false;
+            lineRenderer.enabled = false;
+            DisableParticle();
 
             timer.gameObject.SetActive(true);
             StartCoroutine(timer.Countdown(time, this));
