@@ -211,6 +211,7 @@ MonoBehaviour:
   laserFirePoint: {fileID: 2889723623193048998}
   lineRenderer: {fileID: 2889723623075871518}
   laserEndParticles: {fileID: 2889723624141517026}
+  _isEnabled: 0
 --- !u!1 &2889723623193048999
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +379,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
