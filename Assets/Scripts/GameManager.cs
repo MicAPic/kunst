@@ -3,11 +3,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    public LayerMask obstacleLayers;
-    public CircleCollider2D playerCollider;
-    public Transform level;
-    public float dragDamping = 0.25f;
+    
+    public Rigidbody2D[] boxes;
 
     void Awake()
     {
