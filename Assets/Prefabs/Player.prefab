@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1765066038268721984}
   - component: {fileID: 7528704981887468677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 9172348725908335308}
   - component: {fileID: 9172348725908335310}
   - component: {fileID: 9172348725908335309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -146,3 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd370ad0d80919f4ab59884e5edf8422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeDuration: 0.75
+  shakeStrength: 0.09
+  shakeVibratio: 24
+  shakeRandomness: 64
+  deathSprite: {fileID: 21300000, guid: 6dc31aff419b04134a9054ca01588740, type: 3}
