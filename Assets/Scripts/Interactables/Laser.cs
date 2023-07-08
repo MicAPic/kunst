@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Interactables
@@ -14,13 +15,15 @@ namespace Interactables
         
         private bool endParticlesPlaying;
 
-        private void Start()
+        void Start()
         {
             lineRenderer.material.color = Color.red;
         }
 
-        private void Update()
+        public override void Update()
         {
+            base.Update();
+            
             if (!isEnabled) return;
             ShootLaser();
         }
@@ -36,6 +39,11 @@ namespace Interactables
             isEnabled = false;
             lineRenderer.enabled = false;
             DisableParticle();
+        }
+
+        public override IEnumerator EnableWithTimer(float time)
+        {
+            throw new System.NotImplementedException();
         }
 
         private bool soundWasPlayed;

@@ -3,6 +3,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    
+    public Camera mainCamera;
 
     void Awake()
     {
@@ -12,6 +14,8 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+        
+        mainCamera = Camera.main;
     }
     
     // Start is called before the first frame update

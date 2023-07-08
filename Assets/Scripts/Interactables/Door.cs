@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -31,8 +32,10 @@ namespace Interactables
             }
         }
 
-        void Update()
+        public override void Update()
         {
+            base.Update();
+            
             if (Input.GetKeyDown(KeyCode.O))
             {
                 Enable();
@@ -40,6 +43,10 @@ namespace Interactables
             else if (Input.GetKeyDown(KeyCode.P))
             {
                 Disable();
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                StartCoroutine(EnableWithTimer(5.0f));
             }
         }
 
@@ -59,6 +66,23 @@ namespace Interactables
             {
                 doorParts[index].DOLocalMove(_doorStartPositions[index], animationDuration);
             }
+        }
+
+        public override IEnumerator EnableWithTimer(float time)
+        {
+            isEnabled = true;
+            for (var index = 0; index < doorParts.Length - 1; index++)
+            {
+                doorParts[index].DOLocalMove(doorEndPositions[index], animationDuration);
+            }
+            doorParts[^1].DOLocalMove(doorEndPositions[^1], animationDuration)
+                         .OnComplete(() =>
+                         {
+                             timer.gameObject.SetActive(true);
+                             StartCoroutine(timer.Countdown(time, this));
+                         });
+
+            yield return null;
         }
     }
 }

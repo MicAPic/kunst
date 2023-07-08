@@ -10,13 +10,13 @@ public class DraggableObject : MonoBehaviour
 
     private bool _isDragged;
     private Vector3 _offset;
-    private Camera _mainCamera;
+    
     private Rigidbody2D _rigidbody;
 
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _mainCamera = Camera.main;
+        
     }
 
     // Start is called before the first frame update
@@ -33,14 +33,14 @@ public class DraggableObject : MonoBehaviour
 
         if (!_isDragged) return;
 
-        var newPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition) + _offset;
+        var newPosition = GameManager.Instance.mainCamera.ScreenToWorldPoint(Input.mousePosition) + _offset;
         _velocity = (Vector2) (newPosition - transform.position) * dragPower;
     }
 
     void OnMouseDown()
     {
         // Debug.Log("Mouse Down!");
-        _offset = transform.position - _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        _offset = transform.position - GameManager.Instance.mainCamera.ScreenToWorldPoint(Input.mousePosition);
         _isDragged = true;
     }
 
