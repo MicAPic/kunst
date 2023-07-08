@@ -21,7 +21,7 @@ namespace Interactables
 
         void Start()
         {
-            // lineRenderer.material.color = laserColor;
+            lineRenderer.material.color = laserColor;
         }
 
         public override void Update()
@@ -30,8 +30,6 @@ namespace Interactables
             
             if (!isEnabled) return;
             ShootLaser();
-            //TODO: move the following back to Start
-            lineRenderer.material.color = laserColor;
         }
 
         public override void Enable()
