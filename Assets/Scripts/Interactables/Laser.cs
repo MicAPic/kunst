@@ -13,7 +13,7 @@ namespace Interactables
 
         public ParticleSystem laserEndParticles;
         
-        private bool endParticlesPlaying;
+        public bool endParticlesPlaying;
 
         void Start()
         {
@@ -46,6 +46,7 @@ namespace Interactables
             isEnabled = false;
             lineRenderer.enabled = false;
             DisableParticle();
+
 
             timer.gameObject.SetActive(true);
             StartCoroutine(timer.Countdown(time, this));
@@ -104,8 +105,11 @@ namespace Interactables
         private void DisableParticle()
         {
             endParticlesPlaying = !endParticlesPlaying;
-            laserEndParticles.Pause();
-            laserEndParticles.gameObject.SetActive(false);
+            laserEndParticles.gameObject.SetActive(endParticlesPlaying);
+            if (endParticlesPlaying)
+                laserEndParticles.Play();
         }
+
+
     }
 }
