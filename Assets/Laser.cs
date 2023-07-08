@@ -24,31 +24,40 @@ public class Laser : MonoBehaviour
         ShootLaser();
     }
 
-    private bool soundWasPlayed;
+
 
     private void ShootLaser()
     {
-        if (Physics2D.Raycast(transform.position, transform.right))
+        RaycastHit2D[] hitAll = Physics2D.RaycastAll(laserFirePoint.position, transform.right);
+        if (hitAll.Length > 1)
         {
-            RaycastHit2D hit = Physics2D.Raycast(laserFirePoint.position, transform.right);
-            if (hit)
+            int index = 1;
+            for(int i = 1; i < hitAll.Length; ++i)
             {
-                if (hit.collider is CapsuleCollider2D)
-                {
-                    //hit something
-                    Debug.Log(hit.collider);
+                if (!hitAll[i].collider.CompareTag("Button")){
+                    index = i;
+                    break;
                 }
-
-                if (!endParticlesPlaying)
-                {
-                    endParticlesPlaying = true;
-                    laserEndParticles.Play(true);
-                }
-                laserEndParticles.gameObject.transform.position = hit.point;
-                float distance = ((Vector2)hit.point - (Vector2)transform.position).magnitude;
-                lineRenderer.SetPosition(1, new Vector3(distance, 0, 0));
             }
-            Draw2DRay(laserFirePoint.position, hit.point);
+
+
+            //Debug.Log(hitAll[index].collider);
+
+
+            //if (hitAll[index].collider.CompareTag("Player"))
+            //{
+            //    // game over
+            //}
+
+            if (!endParticlesPlaying)
+            {
+                endParticlesPlaying = true;
+                laserEndParticles.Play(true);
+            }
+            laserEndParticles.gameObject.transform.position = hitAll[index].point;
+            float distance = ((Vector2)hitAll[index].point - (Vector2)transform.position).magnitude;
+            lineRenderer.SetPosition(1, new Vector3(distance, 0, 0));
+            Draw2DRay(laserFirePoint.position, hitAll[index].point);
         }
         else
         {
