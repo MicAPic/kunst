@@ -1,3 +1,4 @@
+using Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -54,6 +55,8 @@ namespace UI
         {
             var asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
             asyncOperation.allowSceneActivation = false;
+            
+            AudioManager.Instance.FadeOutAll(transitionDuration);
             
             RectTransform paintBrush;
             for (var i = 0; i < paintBrushes.Length - 1; i++)
