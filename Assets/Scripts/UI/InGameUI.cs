@@ -63,7 +63,7 @@ namespace UI
         // Update is called once per frame
         void Update()
         {
-            if (!Input.GetKeyDown(KeyCode.Escape)) return;
+            if (!Input.GetKeyDown(KeyCode.Escape) || !GameManager.Instance.canPause) return;
             
             var paintBrush = paintBrushes[0];
             if (GameManager.Instance.isPaused)
