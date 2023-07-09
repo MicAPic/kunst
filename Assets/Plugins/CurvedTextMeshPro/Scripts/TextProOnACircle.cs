@@ -50,9 +50,8 @@ namespace ntw.CurvedTextMeshPro
         /// The angular offset at which the arc should be centered, in degrees.
         /// -90 degrees means that the text is centered on the heighest point
         /// </summary>
-        [SerializeField]
         [Tooltip("The angular offset at which the arc should be centered, in degrees")]
-        private float m_angularOffset = -90;
+        public float m_angularOffset = -90;
 
         /// <summary>
         /// How many maximum degrees per letters should be. For instance, if you specify
