@@ -101,6 +101,7 @@ namespace UI
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {
+                    Time.timeScale = 1.0f;
                     SceneManager.LoadScene(sceneToLoad);
                 });
         }

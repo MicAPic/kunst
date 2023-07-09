@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -71,12 +72,19 @@ namespace UI
         void Update()
         {
             if (!Input.GetKeyDown(KeyCode.Escape) || !GameManager.Instance.canPause) return;
-            
+
+            Pause();
+        }
+
+        public void Pause()
+        {
             var paintBrush = paintBrushes[0];
             if (GameManager.Instance.isPaused)
             {
                 Time.timeScale = 1.0f;
                 paintBrush.DOAnchorPos(pauseBrushStartLocation, pauseTransitionDuration).SetUpdate(true);
+                pauseMenuGroup.interactable = false;
+                pauseMenuGroup.blocksRaycasts = false;
                 pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration / 2).SetUpdate(true);
             }
             else
@@ -85,6 +93,8 @@ namespace UI
                 paintBrush.anchoredPosition = pauseBrushStartLocation;
                 paintBrush.DOAnchorPos(pauseBrushEndLocation, pauseTransitionDuration).SetUpdate(true);
                 paintBrush.GetComponent<Shadow>().enabled = true;
+                pauseMenuGroup.interactable = true;
+                pauseMenuGroup.blocksRaycasts = true;
                 pauseMenuGroup.DOFade(1.0f, pauseTransitionDuration / 2).SetUpdate(true)
                     .SetDelay(pauseTransitionDuration / 2);
             }
