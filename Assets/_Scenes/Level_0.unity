@@ -3205,7 +3205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9153783016684196492, guid: 1ff2a60fc54e74c2aa60167f7a3fdfc7, type: 3}
       propertyPath: m_text
-      value: 'Character 1: Wassily'
+      value: 'Character 0: Wassily'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ff2a60fc54e74c2aa60167f7a3fdfc7, type: 3}
@@ -3450,6 +3450,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9207945051292252536, guid: ed8772a661fca412b8638573761511b3, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e79f7a4c9a51477cb7d8a05bf69463d, type: 3}
     - target: {fileID: 9207945052750853534, guid: ed8772a661fca412b8638573761511b3, type: 3}
       propertyPath: m_RootOrder
       value: 7

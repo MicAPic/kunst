@@ -26,20 +26,32 @@ namespace Audio
 
         public void FadeOut(float duration)
         {
-            AudioManager.Instance.audioMixer.DOSetFloat(
-                exposedVolumeName,
-                Mathf.Log10(0.0001f) * 20,
-                duration
-            ).SetUpdate(true);
+            StartCoroutine(FadeMixerGroup.StartFade
+                (
+                    AudioManager.Instance.audioMixer, 
+                    exposedVolumeName, 
+                    duration, 
+                    0.0001f
+                )
+            );
         }
 
         public void FadeIn(float duration)
         {
-            AudioManager.Instance.audioMixer.DOSetFloat(
-                exposedVolumeName,
-                _maxVolume,
-                duration
+            StartCoroutine(FadeMixerGroup.StartFade
+                (
+                    AudioManager.Instance.audioMixer, 
+                    exposedVolumeName, 
+                    duration, 
+                    _maxVolume
+                )
             );
+        }
+        
+        public void SetVolume(float volume)
+        {
+            PlayerPrefs.SetFloat(exposedVolumeName, volume);
+            AudioManager.Instance.audioMixer.SetFloat(exposedVolumeName, Mathf.Log10(volume) * 20);
         }
     }
 }
