@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public bool canPause;
 
+    public DraggableObject draggableObject;
+
     void Awake()
     {
         if (Instance != null)
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         
         mainCamera = Camera.main;
+        draggableObject = FindObjectOfType<DraggableObject>();
     }
     
     // Start is called before the first frame update
