@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 namespace Audio
@@ -14,6 +13,7 @@ namespace Audio
         
         void Awake()
         {
+            PlayerPrefs.SetFloat(exposedVolumeName, Mathf.Log10(0.994f) * 20);
             _maxVolume = PlayerPrefs.GetFloat(exposedVolumeName, Mathf.Log10(0.994f) * 20);
         }
 
