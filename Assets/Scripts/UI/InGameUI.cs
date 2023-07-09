@@ -1,5 +1,4 @@
 using System.Collections;
-using Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -95,9 +94,6 @@ namespace UI
 
         public void AnimateTransition(string sceneToLoad)
         {
-            var asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
-            asyncOperation.allowSceneActivation = false;
-
             var paintBrush = paintBrushes[0];
             paintBrush.GetComponent<Shadow>().enabled = false;
             paintBrush.anchoredPosition = paintBrushEndLocations[0];
@@ -108,7 +104,7 @@ namespace UI
                 .OnComplete(() =>
                 {
                     Time.timeScale = 1.0f;
-                    asyncOperation.allowSceneActivation = true;
+                    SceneManager.LoadScene(sceneToLoad);
                 });
         }
 

@@ -4,18 +4,11 @@ namespace Audio
 {
     public class AudioPlayer : MonoBehaviour
     {
-        [SerializeField] 
-        private float fadeInDuration;
+        public float fadeInDuration;
         [SerializeField] 
         private string exposedVolumeName;
-        
-        private float _maxVolume;
-        
-        void Awake()
-        {
-            PlayerPrefs.SetFloat(exposedVolumeName, Mathf.Log10(0.994f) * 20);
-            _maxVolume = PlayerPrefs.GetFloat(exposedVolumeName, Mathf.Log10(0.994f) * 20);
-        }
+        [SerializeField]
+        private int maxVolumeIndex;
 
         // Start is called before the first frame update
         void Start()
@@ -43,14 +36,14 @@ namespace Audio
                     AudioManager.Instance.audioMixer, 
                     exposedVolumeName, 
                     duration, 
-                    _maxVolume
+                    SettingsManager.Instance.maxVolumes[maxVolumeIndex]
                 )
             );
         }
         
         public void SetVolume(float volume)
         {
-            PlayerPrefs.SetFloat(exposedVolumeName, volume);
+            SettingsManager.Instance.maxVolumes[maxVolumeIndex] = volume;
             AudioManager.Instance.audioMixer.SetFloat(exposedVolumeName, Mathf.Log10(volume) * 20);
         }
     }

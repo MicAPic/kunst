@@ -62,8 +62,8 @@ namespace UI
         // Start is called before the first frame update
         void Start()
         {
-            musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.994f);
-            sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 0.994f);
+            musicSlider.value = SettingsManager.Instance.maxVolumes[0];
+            sfxSlider.value = SettingsManager.Instance.maxVolumes[1];
             
             if (paintBrushStartLocations.Length != paintBrushEndLocations.Length)
             {
@@ -91,9 +91,6 @@ namespace UI
             
             brush1.color = nextLevelColor;
             brush2.color = nextLevelColor;
-            
-            var asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
-            asyncOperation.allowSceneActivation = false;
 
             var paintBrush = paintBrushes[0];
             paintBrush.GetComponent<Shadow>().enabled = false;
@@ -104,8 +101,7 @@ namespace UI
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {
-                    Time.timeScale = 1.0f;
-                    asyncOperation.allowSceneActivation = true;
+                    SceneManager.LoadScene(sceneToLoad);
                 });
         }
 
