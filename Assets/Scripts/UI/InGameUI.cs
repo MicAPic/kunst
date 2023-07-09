@@ -78,7 +78,7 @@ namespace UI
             {
                 Time.timeScale = 1.0f;
                 paintBrush.DOAnchorPos(pauseBrushStartLocation, pauseTransitionDuration).SetUpdate(true);
-                pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration).SetUpdate(true);
+                pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration / 2).SetUpdate(true);
             }
             else
             {
@@ -86,7 +86,8 @@ namespace UI
                 paintBrush.anchoredPosition = pauseBrushStartLocation;
                 paintBrush.DOAnchorPos(pauseBrushEndLocation, pauseTransitionDuration).SetUpdate(true);
                 paintBrush.GetComponent<Shadow>().enabled = true;
-                pauseMenuGroup.DOFade(1.0f, pauseTransitionDuration).SetUpdate(true);
+                pauseMenuGroup.DOFade(1.0f, pauseTransitionDuration / 2).SetUpdate(true)
+                    .SetDelay(pauseTransitionDuration / 2);
             }
 
             GameManager.Instance.isPaused = !GameManager.Instance.isPaused;

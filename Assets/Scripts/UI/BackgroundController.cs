@@ -41,10 +41,7 @@ namespace UI
         // Update is called once per frame
         private void Update()
         {
-#if UNITY_EDITOR
-            // Only done in the Unity editor since later it is unlikely that your screensize changes
             SetScale();
-#endif
             offset += scroll * Time.deltaTime;
             image.uvRect = new Rect(offset, repeatCount);
         }
