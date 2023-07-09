@@ -124,5 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca7f78d72c00486298bc329f4b3c6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalSfx: {fileID: 8300000, guid: 08ac77caca9324e459b3af84b654b300, type: 3}
+  goalSfx: {fileID: 8300000, guid: 958e72dd10c53441583542cb14788cbc, type: 3}
   levelToLoad: SampleScene
+  nextLevelColor: {r: 0, g: 0, b: 0, a: 0}
+  brush1: {fileID: 0}
+  brush2: {fileID: 0}

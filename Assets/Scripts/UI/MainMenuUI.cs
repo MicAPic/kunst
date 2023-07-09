@@ -11,6 +11,19 @@ namespace UI
     {
         public static MainMenuUI Instance;
         
+        [SerializeField]
+        private Color nextLevelColor;
+        [SerializeField]
+        private RectTransform[] paintBrushes;
+        [SerializeField] 
+        private Vector2[] paintBrushStartLocations;
+        [SerializeField] 
+        private Vector2[] paintBrushEndLocations;
+        [SerializeField]
+        private Image brush1;
+        [SerializeField]
+        private Image brush2;
+        
         [Header("Cursor")] 
         [SerializeField] 
         private Texture2D defaultCursor;
@@ -51,6 +64,18 @@ namespace UI
         {
             musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.994f);
             sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 0.994f);
+            
+            if (paintBrushStartLocations.Length != paintBrushEndLocations.Length)
+            {
+                Debug.LogWarning("You done goofed! Arrays mismatch");
+            }
+            
+            for (var i = 0; i < paintBrushes.Length; i++)
+            {
+                var paintBrush = paintBrushes[i];
+                paintBrush.anchoredPosition = paintBrushStartLocations[i];
+                paintBrush.DOAnchorPos(paintBrushEndLocations[i], transitionTime);
+            }
         }
         
         // Update is called once per frame
@@ -64,7 +89,24 @@ namespace UI
             SceneManager.MoveGameObjectToScene(AudioManager.Instance.gameObject, SceneManager.GetActiveScene());
             AudioManager.Instance.FadeOutAll(1f);
             
-            SceneManager.LoadScene(sceneToLoad);
+            brush1.color = nextLevelColor;
+            brush2.color = nextLevelColor;
+            
+            var asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
+            asyncOperation.allowSceneActivation = false;
+
+            var paintBrush = paintBrushes[0];
+            paintBrush.GetComponent<Shadow>().enabled = false;
+            paintBrush.anchoredPosition = paintBrushEndLocations[0];
+            paintBrush.DOAnchorPos(paintBrushStartLocations[0], transitionTime).SetUpdate(true);
+            
+            paintBrushes[^1].DOAnchorPos(paintBrushStartLocations[^1], transitionTime)
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    Time.timeScale = 1.0f;
+                    asyncOperation.allowSceneActivation = true;
+                });
         }
 
         public void ToggleSettings()

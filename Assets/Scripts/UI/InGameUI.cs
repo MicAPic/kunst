@@ -112,6 +112,11 @@ namespace UI
                 });
         }
 
+        public void SimpleLoad()
+        {
+            SceneManager.LoadSceneAsync("MainMenu");
+        }
+
         public void SetCursor(bool isDragging)
         {
             if (isDragging)

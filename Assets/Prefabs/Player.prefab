@@ -151,4 +151,4 @@ MonoBehaviour:
   shakeVibratio: 24
   shakeRandomness: 64
   deathSprite: {fileID: 21300000, guid: 6dc31aff419b04134a9054ca01588740, type: 3}
-  deathSfx: {fileID: 8300000, guid: 865424a67a6514b72866d51b9ed3332d, type: 3}
+  deathSfx: {fileID: 8300000, guid: d246918446b1c42dc95fa2c43fdf615a, type: 3}
