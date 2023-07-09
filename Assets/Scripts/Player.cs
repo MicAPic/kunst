@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using DG.Tweening;
 using UI;
 using UnityEngine;
@@ -21,6 +22,10 @@ public class Player : MonoBehaviour
     private Collider2D _collider;
     private SpriteRenderer _spriteRenderer;
 
+    [Header("Sound")] 
+    [SerializeField]
+    private AudioClip deathSfx;
+
     private void Awake()
     {
         _collider = GetComponent<Collider2D>();
@@ -40,6 +45,8 @@ public class Player : MonoBehaviour
         GameManager.Instance.canPause = false;
         _collider.enabled = false;
         Time.timeScale = 0.0f;
+        
+        AudioManager.Instance.sfxSource.PlayOneShot(deathSfx);
 
         _spriteRenderer.sprite = deathSprite;
         
@@ -54,7 +61,6 @@ public class Player : MonoBehaviour
             ).SetUpdate(true)
              .OnComplete(() =>
              {
-                 // Time.timeScale = 1.0f;
                  InGameUI.Instance.AnimateTransition(SceneManager.GetActiveScene().name);
              });
     }

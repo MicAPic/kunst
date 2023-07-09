@@ -96,8 +96,6 @@ namespace UI
         {
             var asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
             asyncOperation.allowSceneActivation = false;
-            
-            AudioManager.Instance.FadeOutAll(transitionDuration);
 
             var paintBrush = paintBrushes[0];
             paintBrush.GetComponent<Shadow>().enabled = false;

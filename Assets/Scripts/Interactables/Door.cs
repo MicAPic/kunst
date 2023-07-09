@@ -1,4 +1,5 @@
 using System.Collections;
+using Audio;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,6 +10,12 @@ namespace Interactables
         [Header("Animation")]
         [SerializeField] 
         private float animationDuration = 1.0f;
+        
+        [Header("Sound")]
+        [SerializeField] 
+        private AudioClip openSfx;
+        [SerializeField] 
+        private AudioClip closeSfx;
         
         [Header("Mechanics")]
         [SerializeField] 
@@ -52,6 +59,7 @@ namespace Interactables
         public override void Enable()
         {
             isEnabled = true;
+            AudioManager.Instance.sfxSource.PlayOneShot(openSfx);
             for (var index = 0; index < doorParts.Length; index++)
             {
                 doorParts[index].DOLocalMove(doorEndPositions[index], animationDuration);
@@ -61,6 +69,7 @@ namespace Interactables
         public override void Disable()
         {
             isEnabled = false;
+            AudioManager.Instance.sfxSource.PlayOneShot(closeSfx);
             for (var index = 0; index < doorParts.Length; index++)
             {
                 doorParts[index].DOLocalMove(_doorStartPositions[index], animationDuration);
@@ -70,7 +79,7 @@ namespace Interactables
         public override IEnumerator EnableWithTimer(float time)
         {
             isEnabled = true;
-
+            AudioManager.Instance.sfxSource.PlayOneShot(openSfx);
             for (var index = 0; index < doorParts.Length; index++)
             {
                 doorParts[index].DOLocalMove(doorEndPositions[index], animationDuration);

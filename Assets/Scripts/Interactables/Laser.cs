@@ -61,7 +61,7 @@ namespace Interactables
         private bool soundWasPlayed;
 
         bool playerWasDetected = false;
-        bool playerWasKilled = false;
+        // bool playerWasKilled = false;
         Vector2 playerHitPoint = Vector2.zero;
         private void ShootLaser()
         {
