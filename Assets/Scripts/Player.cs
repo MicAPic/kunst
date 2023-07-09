@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
         _collider.enabled = false;
         Time.timeScale = 0.0f;
         
+        AudioManager.Instance.sfxSource.Stop();
         AudioManager.Instance.sfxSource.PlayOneShot(deathSfx);
 
         _spriteRenderer.sprite = deathSprite;

@@ -52,7 +52,8 @@ public class Button : MonoBehaviour
         Activate();
 
         if (!hasTimer) yield break;
-        AudioManager.Instance.sfxSource.PlayOneShot(timerSfx);
+        AudioManager.Instance.sfxSource.clip = timerSfx;
+        AudioManager.Instance.sfxSource.Play();
         
         yield return new WaitForSeconds(time);
         
