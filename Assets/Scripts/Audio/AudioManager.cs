@@ -34,9 +34,11 @@ namespace Audio
         {
             musicSource = transform.GetChild(0).GetComponent<AudioSource>();
             _musicPlayer = transform.GetChild(0).GetComponent<AudioPlayer>();
+            _musicPlayer.FadeIn(_musicPlayer.fadeInDuration);
             
             sfxSource = transform.GetChild(1).GetComponent<AudioSource>();
             _sfxPlayer = transform.GetChild(1).GetComponent<AudioPlayer>();
+            _sfxPlayer.FadeIn(_sfxPlayer.fadeInDuration);
         }
 
         public void FadeOutAll(float transitionDuration)
