@@ -9,6 +9,10 @@ public class Button : MonoBehaviour
     [Header("Sound")]
     [SerializeField] 
     private AudioClip pressSfx;
+    [SerializeField] 
+    private AudioClip timerSfx;
+    [SerializeField] 
+    private AudioClip timerEndSfx;
     
     [Header("Functionality")]
     [SerializeField] 
@@ -24,6 +28,8 @@ public class Button : MonoBehaviour
     
     [Header("Appearance")]
     [SerializeField]
+    private GameObject timerIcon;
+    [SerializeField]
     private SpriteRenderer buttonSpriteRenderer;
     [SerializeField] 
     private Sprite activeSprite;
@@ -32,6 +38,10 @@ public class Button : MonoBehaviour
     private void Awake()
     {
         _inactiveSprite = buttonSpriteRenderer.sprite;
+        if (hasTimer)
+        {
+            timerIcon.SetActive(true);
+        }
     }
 
     private IEnumerator OnTriggerEnter2D(Collider2D col)
@@ -42,8 +52,12 @@ public class Button : MonoBehaviour
         Activate();
 
         if (!hasTimer) yield break;
+        AudioManager.Instance.sfxSource.PlayOneShot(timerSfx);
+        
         yield return new WaitForSeconds(time);
+        
         isActive = false;
+        AudioManager.Instance.sfxSource.PlayOneShot(timerEndSfx);
         if (_contactCount > 0)
         {
             yield break;
