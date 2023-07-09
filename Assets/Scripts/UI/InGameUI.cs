@@ -11,6 +11,12 @@ namespace UI
     {
         public static InGameUI Instance;
 
+        [Header("Cursor")] 
+        [SerializeField] 
+        private Texture2D defaultCursor; 
+        [SerializeField] 
+        private Texture2D dragCursor;
+
         [Header("Pause")]
         [SerializeField]
         private float pauseTransitionDuration = 1.0f;
@@ -39,6 +45,8 @@ namespace UI
             }
 
             Instance = this;
+
+            SetCursor(false);
         }
         
         // Start is called before the first frame update
@@ -103,6 +111,17 @@ namespace UI
                     Time.timeScale = 1.0f;
                     asyncOperation.allowSceneActivation = true;
                 });
+        }
+
+        public void SetCursor(bool isDragging)
+        {
+            if (isDragging)
+            {
+                Cursor.SetCursor(dragCursor, Vector2.zero, CursorMode.ForceSoftware);
+                return;
+            }
+            
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
         }
     }
 }
