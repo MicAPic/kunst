@@ -1,3 +1,4 @@
+using UI;
 using UnityEngine;
 
 public class DraggableObject : MonoBehaviour
@@ -47,6 +48,7 @@ public class DraggableObject : MonoBehaviour
         // Debug.Log("Mouse Down!");
         _offset = transform.position - GameManager.Instance.mainCamera.ScreenToWorldPoint(Input.mousePosition);
         _isDragged = true;
+        InGameUI.Instance.SetCursor(true);
     }
 
     void OnMouseUp()
@@ -54,5 +56,6 @@ public class DraggableObject : MonoBehaviour
         // Debug.Log("Mouse Up!");
         _isDragged = false;
         _velocity = Vector2.zero;
+        InGameUI.Instance.SetCursor(false);
     }
 }

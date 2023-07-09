@@ -2115,6 +2115,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9153783016684196492, guid: 1ff2a60fc54e74c2aa60167f7a3fdfc7, type: 3}
+      propertyPath: m_text
+      value: 'Character 1: Wassily'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ff2a60fc54e74c2aa60167f7a3fdfc7, type: 3}
 --- !u!1001 &5505724804748059107
