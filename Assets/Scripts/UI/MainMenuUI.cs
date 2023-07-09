@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,6 +34,17 @@ namespace UI
         {
             //TODO: transition
             SceneManager.LoadScene(sceneToLoad);
+        }
+        
+        public void Quit()
+        {
+            #if (UNITY_EDITOR)
+            EditorApplication.ExitPlaymode();
+            #elif (UNITY_STANDALONE) 
+            Application.Quit();
+            #elif (UNITY_WEBGL)
+            Application.OpenURL("https://micapic.itch.io/kunst");
+            #endif
         }
     }
 }
