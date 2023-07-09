@@ -115,11 +115,15 @@ namespace UI
             if (Vector2.Distance(currentPos, _settingsDefaultPos) < Vector2.Distance(currentPos, settingsOnPos))
             {
                 settingsBackground.DOAnchorPos(settingsOnPos, transitionTime);
+                settingsMenuGroup.interactable = true;
+                settingsMenuGroup.blocksRaycasts = true;
                 settingsMenuGroup.DOFade(1f, transitionTime / 2).SetDelay(transitionTime / 2);
             }
             else
             {
                 settingsBackground.DOAnchorPos(_settingsDefaultPos, transitionTime);
+                settingsMenuGroup.interactable = false;
+                settingsMenuGroup.blocksRaycasts = false;
                 settingsMenuGroup.DOFade(0f, transitionTime / 2);
             }
         }
