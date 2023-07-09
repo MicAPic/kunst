@@ -6,8 +6,8 @@ namespace Interactables
     public class Laser : IInteractable
     {
         [Header("Appearance")] 
-        [SerializeField]
-        private Color laserColor = Color.red;
+        //[SerializeField]
+        //private Color laserColor = Color.red;
         [Space]
         [SerializeField]
         private float distanceRay = 100;
@@ -21,7 +21,7 @@ namespace Interactables
 
         void Start()
         {
-            lineRenderer.material.color = laserColor;
+            //lineRenderer.material.color = laserColor;
         }
 
         public override void Update()
@@ -60,6 +60,9 @@ namespace Interactables
 
         private bool soundWasPlayed;
 
+        bool playerWasDetected = false;
+        bool playerWasKilled = false;
+        Vector2 playerHitPoint = Vector2.zero;
         private void ShootLaser()
         {
             RaycastHit2D[] hitAll = Physics2D.RaycastAll(laserFirePoint.position, transform.right);
@@ -74,11 +77,23 @@ namespace Interactables
                         break;
                     }
                 }
-
+                float distance;
                 var raycastHit2D = hitAll[index];
-                if (raycastHit2D.collider.TryGetComponent(out Player player))
+
+                if (raycastHit2D.collider.TryGetComponent(out Player player) && !playerWasDetected)
                 {
+                    playerWasDetected = true;
+                    playerHitPoint = raycastHit2D.point;
                     player.Die();
+                }
+
+                if (playerWasDetected)
+                {
+                    laserEndParticles.gameObject.transform.position = playerHitPoint;
+                    distance = (playerHitPoint - (Vector2)transform.position).magnitude;
+                    lineRenderer.SetPosition(1, new Vector3(distance, 0, 0));
+                    Draw2DRay(laserFirePoint.position, playerHitPoint);
+                    return;
                 }
 
                 if (!endParticlesPlaying)
@@ -88,7 +103,7 @@ namespace Interactables
                     laserEndParticles.Play(true);
                 }
                 laserEndParticles.gameObject.transform.position = raycastHit2D.point;
-                float distance = ((Vector2)raycastHit2D.point - (Vector2)transform.position).magnitude;
+                distance = ((Vector2)raycastHit2D.point - (Vector2)transform.position).magnitude;
                 lineRenderer.SetPosition(1, new Vector3(distance, 0, 0));
                 Draw2DRay(laserFirePoint.position, raycastHit2D.point);
             }
