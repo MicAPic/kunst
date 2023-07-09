@@ -13,7 +13,7 @@ public class Box : MonoBehaviour
     {
         for (int i = 0; i < col.contactCount; i++)
         {
-            var contact = col.GetContact(0);
+            var contact = col.GetContact(i);
             if (!contact.collider.gameObject.CompareTag("Obstacle")) continue;
             
             var distance = contact.normalImpulse - Physics2D.defaultContactOffset * 2.0f;
