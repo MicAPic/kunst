@@ -1,11 +1,15 @@
-using System;
 using System.Collections;
+using Audio;
 using DG.Tweening;
 using Interactables;
 using UnityEngine;
 
 public class Button : MonoBehaviour
 {
+    [Header("Sound")]
+    [SerializeField] 
+    private AudioClip pressSfx;
+    
     [Header("Functionality")]
     [SerializeField] 
     private bool isActive;
@@ -58,6 +62,7 @@ public class Button : MonoBehaviour
     private void Activate()
     {
         isActive = true;
+        AudioManager.Instance.sfxSource.PlayOneShot(pressSfx, 0.1f);
         foreach (var interactable in linkedInteractables)
         {
             if (hasTimer)

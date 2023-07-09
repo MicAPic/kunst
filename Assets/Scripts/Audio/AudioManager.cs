@@ -21,10 +21,12 @@ namespace Audio
         {
             if (Instance != null)
             {
-                Destroy(Instance.gameObject);
+                Destroy(gameObject);
+                return;
             }
 
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         // Start is called before the first frame update

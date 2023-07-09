@@ -161,6 +161,8 @@ MonoBehaviour:
   isEnabled: 0
   timer: {fileID: 6723652267885171931}
   animationDuration: 1
+  openSfx: {fileID: 8300000, guid: c6a56daa53afb4b4e9bd6cfb380ee391, type: 3}
+  closeSfx: {fileID: 8300000, guid: 6762e8d8dd089443d8c6bbcd1978d9a9, type: 3}
   doorParts:
   - {fileID: 2147943313558725671}
   - {fileID: 2147943312809341212}

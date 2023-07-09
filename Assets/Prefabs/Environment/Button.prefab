@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09aef76e67f7e44ed8d5a0ba13a1c2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressSfx: {fileID: 8300000, guid: b638c372c38cc4b12a8b1e6daf41a38c, type: 3}
   isActive: 0
   linkedInteractables: []
   hasTimer: 0
