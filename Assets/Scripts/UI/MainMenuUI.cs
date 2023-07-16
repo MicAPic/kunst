@@ -11,19 +11,14 @@ namespace UI
     {
         public static MainMenuUI Instance;
         
+        public RectTransform[] paintBrushes;
         [SerializeField]
         private Color nextLevelColor;
-        [SerializeField]
-        private RectTransform[] paintBrushes;
         [SerializeField] 
         private Vector2[] paintBrushStartLocations;
         [SerializeField] 
         private Vector2[] paintBrushEndLocations;
-        [SerializeField]
-        private Image brush1;
-        [SerializeField]
-        private Image brush2;
-        
+
         [Header("Cursor")] 
         [SerializeField] 
         private Texture2D defaultCursor;
@@ -56,14 +51,8 @@ namespace UI
             Instance = this;
             
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
+            
             _settingsDefaultPos = settingsBackground.anchoredPosition;
-        }
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-            musicSlider.value = SettingsManager.Instance.maxVolumes[0];
-            sfxSlider.value = SettingsManager.Instance.maxVolumes[1];
             
             if (paintBrushStartLocations.Length != paintBrushEndLocations.Length)
             {
@@ -74,8 +63,15 @@ namespace UI
             {
                 var paintBrush = paintBrushes[i];
                 paintBrush.anchoredPosition = paintBrushStartLocations[i];
-                paintBrush.DOAnchorPos(paintBrushEndLocations[i], transitionTime);
+                paintBrush.DOAnchorPos(paintBrushEndLocations[i], 1.25f);
             }
+        }
+        
+        // Start is called before the first frame update
+        void Start()
+        {
+            musicSlider.value = SettingsManager.Instance.maxVolumes[0];
+            sfxSlider.value = SettingsManager.Instance.maxVolumes[1];
         }
         
         // Update is called once per frame
@@ -89,8 +85,10 @@ namespace UI
             SceneManager.MoveGameObjectToScene(AudioManager.Instance.gameObject, SceneManager.GetActiveScene());
             AudioManager.Instance.FadeOutAll(1f);
             
-            brush1.color = nextLevelColor;
-            brush2.color = nextLevelColor;
+            foreach (var brush in paintBrushes)
+            {
+                brush.GetComponent<Image>().color = nextLevelColor;
+            }
 
             var paintBrush = paintBrushes[0];
             paintBrush.GetComponent<Shadow>().enabled = false;

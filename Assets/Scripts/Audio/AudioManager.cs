@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 namespace Audio
 {
@@ -45,6 +46,12 @@ namespace Audio
         {
             _musicPlayer.FadeOut(transitionDuration);
             _sfxPlayer.FadeOut(transitionDuration);
+        }
+
+        public void Reset(float fadeOutTime)
+        {
+            SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
+            FadeOutAll(fadeOutTime);
         }
     }
 }

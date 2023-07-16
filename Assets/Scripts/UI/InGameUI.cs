@@ -1,4 +1,5 @@
 using System.Collections;
+using Audio;
 using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
@@ -28,10 +29,9 @@ namespace UI
         private CanvasGroup pauseMenuGroup;
         
         [Header("End Transition")] 
+        public RectTransform[] paintBrushes;
         [SerializeField]
         private float transitionDuration = 1.0f;
-        [SerializeField] 
-        private RectTransform[] paintBrushes;
         [SerializeField] 
         private Vector2[] paintBrushStartLocations;
         [SerializeField] 
@@ -106,13 +106,14 @@ namespace UI
         {
             var paintBrush = paintBrushes[0];
             paintBrush.GetComponent<Shadow>().enabled = false;
-            paintBrush.anchoredPosition = paintBrushEndLocations[0];
+            // paintBrush.anchoredPosition = paintBrushEndLocations[0];
             paintBrush.DOAnchorPos(paintBrushStartLocations[0], transitionDuration).SetUpdate(true);
             
             paintBrushes[^1].DOAnchorPos(paintBrushStartLocations[^1], transitionDuration)
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {
+                    DOTween.KillAll();
                     Time.timeScale = 1.0f;
                     SceneManager.LoadScene(sceneToLoad);
                 });
@@ -120,7 +121,20 @@ namespace UI
 
         public void SimpleLoad()
         {
-            SceneManager.LoadSceneAsync("MainMenu");
+            //despite the ambiguous name, used to return to the menu
+            
+            AudioManager.Instance.Reset(transitionDuration);
+            
+            pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration / 2).SetUpdate(true);
+
+            foreach (var paintBrush in paintBrushes)
+            {
+                paintBrush.GetComponent<Image>().DOColor(new Color(0.1372549f, 0.1372549f, 0.1372549f), 
+                    transitionDuration).SetUpdate(true);
+            }
+            
+            GameManager.Instance.canPause = false;
+            AnimateTransition("MainMenu");
         }
 
         public void SetCursor(bool isDragging)
