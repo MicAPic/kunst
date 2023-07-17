@@ -18,6 +18,7 @@ public class DraggableObject : MonoBehaviour
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        dragPower = SettingsManager.Instance.mouseSensitivity;
     }
 
     // Start is called before the first frame update

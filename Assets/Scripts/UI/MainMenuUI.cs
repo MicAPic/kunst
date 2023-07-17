@@ -32,6 +32,8 @@ namespace UI
         private Slider musicSlider;
         [SerializeField] 
         private Slider sfxSlider;
+        [SerializeField] 
+        private Slider mouseSensitivitySlider;
         [Space]
         [SerializeField] 
         private float transitionTime;
@@ -72,6 +74,7 @@ namespace UI
         {
             musicSlider.value = SettingsManager.Instance.maxVolumes[0];
             sfxSlider.value = SettingsManager.Instance.maxVolumes[1];
+            mouseSensitivitySlider.value = SettingsManager.Instance.mouseSensitivity;
         }
         
         // Update is called once per frame
@@ -130,8 +133,13 @@ namespace UI
             #elif (UNITY_STANDALONE) 
             Application.Quit();
             #elif (UNITY_WEBGL)
-            Application.OpenURL("https://micapic.itch.io/kunst");
+            Application.ExternalEval("window.open('" + "about:blank" + "','_self')");
             #endif
+        }
+        
+        public void SetMouseSensitivity(float value)
+        {
+            SettingsManager.Instance.mouseSensitivity = value;
         }
     }
 }
