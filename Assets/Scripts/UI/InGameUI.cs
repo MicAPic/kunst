@@ -1,7 +1,6 @@
 using System.Collections;
 using Audio;
 using DG.Tweening;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -71,9 +70,15 @@ namespace UI
         // Update is called once per frame
         void Update()
         {
-            if (!Input.GetKeyDown(KeyCode.Escape) || !GameManager.Instance.canPause) return;
+            if (Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.canPause)
+            {
+                Pause();
+            }
 
-            Pause();
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Restart();
+            }
         }
 
         public void Pause()
@@ -86,6 +91,8 @@ namespace UI
                 pauseMenuGroup.interactable = false;
                 pauseMenuGroup.blocksRaycasts = false;
                 pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration / 2).SetUpdate(true);
+                
+                AudioManager.Instance.sfxSource.Play();
             }
             else
             {
@@ -97,6 +104,8 @@ namespace UI
                 pauseMenuGroup.blocksRaycasts = true;
                 pauseMenuGroup.DOFade(1.0f, pauseTransitionDuration / 2).SetUpdate(true)
                     .SetDelay(pauseTransitionDuration / 2);
+                
+                AudioManager.Instance.sfxSource.Pause();
             }
 
             GameManager.Instance.isPaused = !GameManager.Instance.isPaused;
@@ -104,6 +113,8 @@ namespace UI
 
         public void AnimateTransition(string sceneToLoad)
         {
+            pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration / 2).SetUpdate(true);
+            
             var paintBrush = paintBrushes[0];
             paintBrush.GetComponent<Shadow>().enabled = false;
             // paintBrush.anchoredPosition = paintBrushEndLocations[0];
@@ -122,10 +133,8 @@ namespace UI
         public void SimpleLoad()
         {
             //despite the ambiguous name, used to return to the menu
-            
+
             AudioManager.Instance.Reset(transitionDuration);
-            
-            pauseMenuGroup.DOFade(0.0f, pauseTransitionDuration / 2).SetUpdate(true);
 
             foreach (var paintBrush in paintBrushes)
             {
@@ -135,6 +144,13 @@ namespace UI
             
             GameManager.Instance.canPause = false;
             AnimateTransition("MainMenu");
+        }
+
+        public void Restart()
+        {
+            GameManager.Instance.canPause = false;
+            AudioManager.Instance.sfxSource.Stop();
+            AnimateTransition(SceneManager.GetActiveScene().name);
         }
 
         public void SetCursor(bool isDragging)

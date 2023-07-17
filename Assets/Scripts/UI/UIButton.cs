@@ -26,14 +26,14 @@ namespace UI
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _buttonImage.DOColor(highlightColour, 0.1f);
-            _outline.DOColor(outlineColour, 0.1f);
+            _buttonImage.DOColor(highlightColour, 0.1f).SetUpdate(true);
+            _outline.DOColor(outlineColour, 0.1f).SetUpdate(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _buttonImage.DOColor(_defaultColour, 0.1f);
-            _outline.DOColor(Color.clear, 0.1f);
+            _buttonImage.DOColor(_defaultColour, 0.1f).SetUpdate(true);
+            _outline.DOColor(Color.clear, 0.1f).SetUpdate(true);
         }
     }
 }

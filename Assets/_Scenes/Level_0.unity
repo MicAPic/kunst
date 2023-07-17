@@ -3213,7 +3213,7 @@ PrefabInstance:
       objectReference: {fileID: 1404108901}
     - target: {fileID: 984488433947438592, guid: 1ff2a60fc54e74c2aa60167f7a3fdfc7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SimpleLoad
+      value: Restart
       objectReference: {fileID: 0}
     - target: {fileID: 1525687188937615507, guid: 1ff2a60fc54e74c2aa60167f7a3fdfc7, type: 3}
       propertyPath: m_Color.b
